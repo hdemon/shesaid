@@ -1,5 +1,4 @@
 require "alicesaid/version"
-
-module Alicesaid
-  # Your code goes here...
-end
+require "alicesaid/crawler"
+require "alicesaid/image"
+require './db/connection'
