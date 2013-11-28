@@ -2,6 +2,7 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alicesaid/version'
+require 'pry'
 
 Gem::Specification.new do |spec|
   spec.name          = "alicesaid"
@@ -24,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "google-search"
   spec.add_runtime_dependency "sqlite3"
   spec.add_runtime_dependency "activesupport"
+  spec.add_runtime_dependency "rmagick"
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
