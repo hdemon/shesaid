@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(version: 20131128170208) do
 
   create_table "images", force: true do |t|
     t.integer "character_id"
+    t.text    "title"
+    t.text    "uri"
     t.binary  "blob"
     t.integer "width"
     t.integer "height"

@@ -1,27 +1,47 @@
 require 'google-search'
+require 'active_record'
+require 'active_support'
 require "RMagick"
 require "AnimeFace"
 
 module AliceSaid
   class Image < ActiveRecord::Base
+    attr_reader :uri, :title, :blob, :content
 
-    attr_reader :blob
+    def set_source_image(google_image)
+      @scraped = false
 
-    def initialize(google_image)
-      @uri = google_image.uri
-      @title = google_image.title
+      self.uri = @uri = google_image.uri
+      self.title = google_image.title
+      self.blob = blob
+      @rmagick_obj = Magick::Image.from_blob(self.blob).shift if self.blob.present?
+      self.height = @rmagick_obj.rows
+      self.width = @rmagick_obj.columns
     end
 
     def blob
-      _blob = nil
-      open(@uri) do |data|
-        _blob = data.read
-      end
-      _blob
+      d = nil
+      open(self.uri) {|data| d = data.read }
+      @scraped = true
+      d
+    rescue OpenURI::HTTPError
+      @scraped = false
+      puts "404 not found."
+      nil
+    end
+
+    def anime_face(rmagick_obj)
+      @anime_face ||= AnimeFace::detect(rmagick_obj)
+    end
+
+    def scraped?
+      @scraped
     end
 
     def face?
-
+      return false unless scraped?
+      result = anime_face(@rmagick_obj)
+      result.present?
     end
   end
 end
