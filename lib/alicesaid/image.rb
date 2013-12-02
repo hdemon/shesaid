@@ -6,6 +6,9 @@ require "AnimeFace"
 
 module AliceSaid
   class Image < ActiveRecord::Base
+    has_many :image_characters
+    has_many :images, :through => :image_characters
+
     attr_reader :uri, :title, :blob, :content
 
     def set_source_image(google_image)
@@ -15,8 +18,8 @@ module AliceSaid
       self.title = google_image.title
       self.blob = blob
       @rmagick_obj = Magick::Image.from_blob(self.blob).shift if self.blob.present?
-      self.height = @rmagick_obj.rows
-      self.width = @rmagick_obj.columns
+      self.height = @rmagick_obj.try(:rows) || nil
+      self.width = @rmagick_obj.try(:columns) || nil
     end
 
     def blob
