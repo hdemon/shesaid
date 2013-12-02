@@ -1,9 +1,9 @@
-require "./lib/alicesaid"
+require "./lib/shesaid"
 
 get '/' do
   'hoge'
 end
 
-crawler = AliceSaid::Crawler.new
+crawler = SheSaid::Crawler.new
 puts crawler.get_uris
 

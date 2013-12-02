@@ -4,7 +4,7 @@ require 'active_support'
 require "RMagick"
 require "AnimeFace"
 
-module AliceSaid
+module SheSaid
   class Image < ActiveRecord::Base
     has_many :image_characters
     has_many :images, :through => :image_characters

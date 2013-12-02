@@ -1,13 +1,13 @@
 require "bundler/gem_tasks"
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
-require './lib/alicesaid'
+require './lib/shesaid'
 require './db/connection'
 
 task :init do
   characters = YAML.load_file "characters.yml"
   characters.each do |c|
-    character = AliceSaid::Character.new do |char|
+    character = SheSaid::Character.new do |char|
       char.name = c["name"]
       char.search_word = c["search_word"]
     end
@@ -16,5 +16,5 @@ task :init do
 end
 
 task :crawl do
-  AliceSaid::Crawler.crawl
+  SheSaid::Crawler.crawl
 end

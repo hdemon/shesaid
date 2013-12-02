@@ -1,6 +1,6 @@
 development:
   adapter: sqlite3
-  database: alicesaid
+  database: shesaid
   host: localhost
   username: root
   password:
