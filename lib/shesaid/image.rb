@@ -2,6 +2,7 @@ require 'google-search'
 require 'active_record'
 require 'active_support'
 require "RMagick"
+
 require "AnimeFace"
 
 module SheSaid
@@ -24,6 +25,7 @@ module SheSaid
       else
         @rmagick_obj = NilRMagickObject.new
       end
+
       self.height = @rmagick_obj.rows
       self.width = @rmagick_obj.columns
       self.face_data = anime_face(@rmagick_obj)
