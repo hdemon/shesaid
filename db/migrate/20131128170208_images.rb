@@ -4,7 +4,7 @@ class Images < ActiveRecord::Migration
       t.integer :character_id
       t.text :title
       t.text :uri
-      t.binary  :blob
+      t.binary :blob, limit: 10485760
       t.text :face_data
       t.integer :width
       t.integer :height

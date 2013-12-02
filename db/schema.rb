@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20131130152224) do
     t.integer "character_id"
     t.text    "title"
     t.text    "uri"
-    t.binary  "blob"
+    t.binary  "blob",         limit: 10485760
     t.text    "face_data"
     t.integer "width"
     t.integer "height"
