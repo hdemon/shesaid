@@ -1,10 +1,12 @@
-- name: alice
-  search_word: きんいろモザイク アリス
-- name: shinobu
-  search_word: きんいろモザイク 忍
-- name: youko
-  search_word: きんいろモザイク 陽子
-- name: aya
-  search_word: きんいろモザイク 綾
-- name: karen
-  search_word: きんいろモザイク カレン
+# example
+
+# - name: alice
+#   search_word: きんいろモザイク アリス
+# - name: shinobu
+#   search_word: きんいろモザイク 忍
+# - name: youko
+#   search_word: きんいろモザイク 陽子
+# - name: aya
+#   search_word: きんいろモザイク 綾
+# - name: karen
+#   search_word: きんいろモザイク カレン
