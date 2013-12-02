@@ -1,9 +1,7 @@
 require "./lib/shesaid"
 
 get '/' do
-  'hoge'
+  image = SheSaid::Image.first offset: rand(SheSaid::Image.count)
+  headers 'Content-Type' => "image/jpeg"
+  image[:blob]
 end
-
-crawler = SheSaid::Crawler.new
-puts crawler.get_uris
-
