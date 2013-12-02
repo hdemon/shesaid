@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20131130152224) do
   end
 
   create_table "image_characters", force: true do |t|
-    t.integer "character_id"
-    t.integer "image_id"
+    t.integer  "character_id", null: false
+    t.integer  "image_id",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "images", force: true do |t|
@@ -27,6 +29,7 @@ ActiveRecord::Schema.define(version: 20131130152224) do
     t.text    "title"
     t.text    "uri"
     t.binary  "blob"
+    t.text    "face_data"
     t.integer "width"
     t.integer "height"
   end

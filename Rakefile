@@ -14,3 +14,7 @@ task :init do
     character.save
   end
 end
+
+task :crawl do
+  AliceSaid::Crawler.crawl
+end

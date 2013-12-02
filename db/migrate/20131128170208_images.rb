@@ -5,6 +5,7 @@ class Images < ActiveRecord::Migration
       t.text :title
       t.text :uri
       t.binary  :blob
+      t.text :face_data
       t.integer :width
       t.integer :height
     end
