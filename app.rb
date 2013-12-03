@@ -27,10 +27,14 @@ def baloon_overprinted_image(args)
 
   base_width = args[:material].width
   base_height = args[:material].height
+
+  baloon_height = args[:material].height / 4
+  baloon_width = baloon_height / 1.6
+
   baloon_obj = Baloon.new(base_width: base_width, base_height: base_height,
                           x: base_width / 2, y: base_height / 2,
-                          width: 180, height: 300,
-                          phrase: "あああああああああ\nいいいいいいいいいい\nううううううううう" )
+                          width: baloon_width, height: baloon_height,
+                          phrase: "進捗\nどうですか",
                       .create
 
   overprinted_obj = image_obj.composite baloon_obj, CenterGravity, 0, 0, OverCompositeOp
@@ -53,10 +57,7 @@ class Baloon
     @width = args[:width]
     @height = args[:height]
     @phrase = args[:phrase]
-
     @color = 'white'
-    @height = 200
-    @width = @height / 1.6
   end
 
   def create
@@ -66,18 +67,46 @@ class Baloon
 
       canvas.g do |body|
         body.styles(fill: 'white', stroke: 'rgb(100, 100, 100)', stroke_width: 1.5)
-        body.ellipse(@width, @height, @base_width / 2, @base_height / 2)
+        body.ellipse(@width, @height, @x, @y)
 
-        body.text(@base_width / 2, @base_height / 2) do |title|
-          title.tspan(@phrase)
-               .styles(text_anchor: 'start', font_size: 20, font_family: 'helvetica', fill: 'black',
-                        writing_mode: 'tb', glyph_orientation_vertical: 0)
-        end
+        phrase = Phrase.new(phrase: @phrase,
+                            base_canvas: body,
+                            font_size: @base_height / 20,
+                            x: @x, y: @y - (@height / 2) * 1.2)
+        phrase.create
       end
     end
 
     @rvg.draw.write('baloon.png')
     Magick::Image.read('baloon.png').shift
   end
+end
 
+
+class Phrase
+  def initialize(args)
+    @phrase = args[:phrase].split("\n")
+    @line_number = @phrase.length
+    @font_size = args[:font_size]
+    @base_canvas = args[:base_canvas]
+    @center_x = args[:x]
+    @center_y = args[:y]
+  end
+
+  def create
+    x = 0
+    @phrase.each do |p|
+      @base_canvas.text(@center_x + offset_x + x, @center_y) do |title|
+        title.tspan(p)
+             .styles(text_anchor: 'start', font_size: @font_size, font_weight: 'lighter',
+                     stroke: 'rgb(50, 50, 50)', fill: 'rgb(50, 50, 50)',
+                     writing_mode: 'tb', glyph_orientation_vertical: 0)
+      end
+      x -= @font_size * 1.5
+    end
+  end
+
+  def offset_x
+    ((@line_number - 1) * (@font_size / 2)) + (@font_size / 2) * (@line_number - 1)
+  end
 end
