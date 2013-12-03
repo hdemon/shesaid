@@ -1,6 +1,17 @@
 # SheSaid
 
+
+```
+curl http://shesaid.net/?character=youko&phrase=進捗\nどうですか
+```
+
+![](http://gyazo.com/93fa8731cff66673df0dc4dede1b8b71.png)
+
+開発中
+
+
 TODO: Write a gem description
+
 
 ## Installation
 
