@@ -16,6 +16,5 @@ test/tmp
 test/version_tmp
 tmp
 .ruby-version
-shesaid
-
+/shesaid
 characters.yml
