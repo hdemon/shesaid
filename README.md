@@ -1,7 +1,7 @@
 # SheSaid
 
 ```
-$ curl http://shesaid.example.org/?character=youko&phrase=進捗%5cnどうですか
+$ curl "http://shesaid.example.org/?character=youko&phrase=進捗%5cnどうですか" > example.jpg
 ```
 
 ![](http://gyazo.com/93fa8731cff66673df0dc4dede1b8b71.png)
