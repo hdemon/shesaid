@@ -25,10 +25,11 @@ end
 def baloon_overprinted_image(args)
   screen = Screen.new(args[:material][:blob])
 
-  draw_baloon_on screen
+  face_hash = args[:material][:face_data].first
+  face = Face.new(face_hash)
 
-  face_info = args[:material][:face_data].first["face"]
-  draw_face_box_on screen, face_info
+  draw_baloon_on screen, face
+  draw_face_box_on screen, face
 
   # baloon_area_box = FaceBox.new(
   #   start_x: @start_x - face_box[:width] * PADDING[:left],
@@ -43,14 +44,15 @@ def magick_image_obj(blob)
   Magick::Image.from_blob(blob).shift
 end
 
-def draw_face_box_on(screen, face_info)
-  face_box = FaceBox.new(start_x: face_info["x"], start_y: face_info["y"], width: face_info["width"], height: face_info["height"])
+def draw_face_box_on(screen, face)
+  face_box = FaceBox.new(start_x: face.start_x, start_y: face.start_y, width: face.width, height: face.height)
   face_box.set_base(screen.width, screen.height)
   face_box_obj = face_box.create
   screen.composite face_box_obj
 end
 
-def draw_baloon_on(screen)
+def draw_baloon_on(screen, face)
+  baloon_center_x = face.start_x
   baloon_height = screen.height / 3.7
   baloon_width = baloon_height / 1.6
 
@@ -60,4 +62,3 @@ def draw_baloon_on(screen)
 
   screen.composite baloon_obj.set_base(screen).create
 end
-

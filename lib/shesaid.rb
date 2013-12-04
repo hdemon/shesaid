@@ -7,4 +7,5 @@ require "shesaid/baloon"
 require "shesaid/box"
 require "shesaid/face_box"
 require "shesaid/screen"
+require "shesaid/face"
 require './db/connection'
