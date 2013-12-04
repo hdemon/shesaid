@@ -4,4 +4,7 @@ require "shesaid/image"
 require "shesaid/character"
 require "shesaid/image_character"
 require "shesaid/baloon"
+require "shesaid/box"
+require "shesaid/face_box"
+require "shesaid/screen"
 require './db/connection'
