@@ -1,10 +1,12 @@
 # SheSaid
 
 ```
-curl http://shesaid.example.org/?character=youko&phrase=進捗\nどうですか
+$ curl http://shesaid.example.org/?character=youko&phrase=進捗%5cnどうですか
 ```
 
 ![](http://gyazo.com/93fa8731cff66673df0dc4dede1b8b71.png)
+
+As well, `%5c` in this uri is the string percent encoded from `/`.
 
 開発中
 
