@@ -1,31 +1,18 @@
 # SheSaid
 
-
 ```
-curl http://shesaid.net/?character=youko&phrase=進捗\nどうですか
+curl http://shesaid.example.org/?character=youko&phrase=進捗\nどうですか
 ```
 
 ![](http://gyazo.com/93fa8731cff66673df0dc4dede1b8b71.png)
 
 開発中
 
-
 TODO: Write a gem description
-
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-    gem 'shesaid'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install shesaid
+TODO: Write a way of installation
 
 ## Usage
 
