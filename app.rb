@@ -6,7 +6,7 @@ include Magick
 
 get '/' do
   headers 'Content-Type' => "image/jpeg"
-  baloon_overprinted_image(material: image, sentence: params[:sentence])
+  baloon_overprinted_image(material: image, phrase: params[:phrase])
 end
 
 def character_id
@@ -28,7 +28,7 @@ def baloon_overprinted_image(args)
   face_hash = args[:material][:face_data].first
   face = Face.new(face_hash)
 
-  draw_baloon_on screen, face
+  draw_baloon_on screen, face, args[:phrase]
   draw_face_box_on screen, face
 
   # baloon_area_box = FaceBox.new(
@@ -51,14 +51,19 @@ def draw_face_box_on(screen, face)
   screen.composite face_box_obj
 end
 
-def draw_baloon_on(screen, face)
-  baloon_center_x = face.start_x
+def draw_baloon_on(screen, face, phrase)
   baloon_height = screen.height / 3.7
   baloon_width = baloon_height / 1.6
 
-  baloon_obj = Baloon.new(x: screen.width / 2, y: screen.height / 2,
+  baloon_center_x = face.start_x + face.width + baloon_width
+  baloon_center_y = face.start_y + random * face.height * 1.5
+  baloon_obj = Baloon.new(x: baloon_center_x, y: baloon_center_y,
                           width: baloon_width, height: baloon_height,
-                          phrase: "進捗\nどうですか")
+                          phrase: phrase)
 
   screen.composite baloon_obj.set_base(screen).create
+end
+
+def random
+  Random.new(Random.new_seed).rand
 end

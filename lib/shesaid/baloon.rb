@@ -1,5 +1,6 @@
 require "rmagick"
 require 'rvg/rvg'
+require 'pry'
 include Magick
 
 
@@ -18,6 +19,11 @@ class Baloon
   def set_base(base)
     @base_width = base.width
     @base_height = base.height
+    self
+  end
+
+  def set_face(face)
+    @face = face
     self
   end
 
@@ -41,12 +47,27 @@ class Baloon
     @rvg.draw.write('baloon.png')
     Magick::Image.read('baloon.png').shift
   end
+
+  def barb_location
+  end
 end
 
 
+class Barb
+  def initialize(args)
+    @baloon = args[:baloon]
+    @face = args[:face]
+    @color = 'white'
+
+            head.polygon(30,0, 70,5, 30,10, 62,25, 23,20).styles(:fill=>'orange')
+        slope = (@face.mouth.y - @center_y) / (@face.mouth.x - @center_x)
+  end
+end
+
 class Phrase
   def initialize(args)
-    @phrase = args[:phrase].split("\n")
+    @phrase = args[:phrase].split("\\n")
+
     @line_number = @phrase.length
     @font_size = args[:font_size]
     @base_canvas = args[:base_canvas]

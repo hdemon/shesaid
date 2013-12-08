@@ -1,9 +1,9 @@
 require 'google-search'
 require 'active_record'
 require 'active_support'
-require "RMagick"
-
+require "rmagick"
 require "AnimeFace"
+
 
 module SheSaid
   class Image < ActiveRecord::Base
