@@ -1,7 +1,7 @@
 # SheSaid
 
 ```
-$ curl http://localhost:9292/?character=alice&phrase=進捗%5cnどうですか
+$ curl "http://localhost:9292/?character=alice&phrase=進捗%5cnどうですか" > example.jpg
 ```
 As well, `%5c` in this uri is the string percent encoded from `/`.
 
