@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in shesaid.gemspec
+# gem "rmagick", require: false
+gem "blf", require: false
+
 gemspec

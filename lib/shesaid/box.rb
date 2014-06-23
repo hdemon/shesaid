@@ -1,9 +1,3 @@
-require "rmagick"
-require 'rvg/rvg'
-require 'pp'
-include Magick
-
-
 class Box
   def initialize(args)
     @start_x = args[:start_x]
@@ -12,6 +6,8 @@ class Box
     @height = args[:height]
     @end_x = args[:end_x] || @start_x + @width
     @end_y = args[:end_y] || @start_y + @height
+
+    @screen = args[:screen]
   end
 
   def set_base(base_width, base_height)
@@ -20,7 +16,7 @@ class Box
   end
 
   def create
-    img = Magick::Image.new(@base_width, @base_height) {
+    img = Magick::Image.new(@screen.width, @screen.height) {
       self.background_color = "Transparent"
     }
     gc = Magick::Draw.new

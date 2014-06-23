@@ -1,8 +1,3 @@
-require "rmagick"
-require 'rvg/rvg'
-include Magick
-
-
 class Screen
   attr_reader :object
 

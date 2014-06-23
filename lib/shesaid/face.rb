@@ -1,10 +1,14 @@
 require "shesaid/box"
+require "AnimeFace"
+require "pp"
 
-class Face < Box
+class SheSaid::Face < Box
   attr_reader :start_x, :start_y, :width, :height, :end_x, :end_y, :center_x, :center_y
 
-  def initialize(face_hash)
-    face = face_hash["face"]
+  def initialize(rmagick_obj)
+    anime_face_object = AnimeFace::detect(rmagick_obj).shift
+    face = anime_face_object["face"]
+
     @start_x = face["x"]
     @start_y = face["y"]
     @width = face["width"]

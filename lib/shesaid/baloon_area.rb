@@ -1,43 +1,37 @@
-require "rmagick"
-require 'rvg/rvg'
-require 'pp'
-include Magick
+require "blf"
+require "shesaid/box"
 
 
+class BaloonArea < Box
+  PADDING = { top: 0.2, right: 0.8, bottom: 0.4, left: 0.8 }
 
-class BaloonArea
-  PADDING = { top: 0.2, right: 0.6, bottom: 0.4, left: 0.6 }
+  attr_reader :start_x, :start_y, :width, :height, :baloon_block, :world
 
   def initialize(args)
-    @base_width = args[:base_width]
-    @base_height = args[:base_height]
+    @screen = args[:screen]
     @face = args[:face]
+
+    @start_x = @face.start_x - @face.width * PADDING[:left]
+    @start_y = @face.start_y - @face.height * PADDING[:top]
+    @start_x = 0 if @start_x < 0
+    @start_y = 0 if @start_y < 0
+    @end_x = @face.end_x + @face.width * PADDING[:right]
+    @end_x = @screen.width if @end_x > @screen.width
+    @end_y = @face.end_y + @face.height * PADDING[:bottom]
+    @end_y = @screen.height if @end_y > @screen.height
+    @width = @end_x - @start_x
+    @height = @end_y - @start_y
   end
 
-  def wrapper_box
-    @wrapper_box ||= {
-      start_x: @start_x - face_box[:width] * PADDING[:left],
-      start_y: @start_y - face_box[:height] * PADDING[:top],
-      width: @width,
-      height: @height,
-      end_x: (@start_x + @width) + face_box[:width] * PADDING[:right],
-      end_y: (@start_y + @height) + face_box[:height] * PADDING[:bottom],
-    }
+  def allocate
+    @world = BLF::World.new width: @width, height: @height
+    @world.add_block_with_location x: @face.start_x - @start_x, y: @face.start_y - @start_y, width: @face.width, height: @face.height
+    @world.add_block width: @screen.width / 6, height: @screen.height / 3.7
+    @world.allocate_all
+    calc_location
   end
 
-  def create
-    img = Magick::Image.new(@base_width, @base_height) {
-      self.background_color = "Transparent"
-    }
-    gc = Magick::Draw.new
-
-    gc.stroke("#000000")
-    gc.stroke_width(1)
-    gc.fill 'rgba(0,0,0,0)'
-    gc.rectangle(face_box[:start_x], face_box[:start_y], face_box[:end_x], face_box[:end_y])
-    gc.rectangle(wrapper_box[:start_x], wrapper_box[:start_y], wrapper_box[:end_x], wrapper_box[:end_y])
-    gc.draw img
-    img.write("baloon_area.png")
-    Magick::Image.read('baloon_area.png').shift
+  def calc_location
+    @baloon_block ||= @world.placed_blocks.pop
   end
 end
